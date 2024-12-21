@@ -1,18 +1,17 @@
 FROM node:18-alpine
 
+RUN apk add --no-cache bash
+
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
-
 COPY . .
 
-EXPOSE 8080
+RUN npm install
 
-ENV PORT=8080
+EXPOSE 3000
 
+ENV PORT=3000
 
-COPY .env ./
-
-CMD ["npm", "run","dev"]
+CMD ["npm", "start"]

@@ -5,3 +5,4 @@ log/
 .env.*
 
 uploads/
+docker_builder.bat
