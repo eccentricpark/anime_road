@@ -1,9 +1,11 @@
 // user.controller.ts
-import { JsonController, Get, Post, Delete, Req, Res, Param, Body } from 'routing-controllers';
+import { JsonController, Get, Post, Delete, Req, Res, Param, Body, UploadedFiles } from 'routing-controllers';
 import { Response, NextFunction, Request } from 'express';
 import { Container } from 'typedi'
 import { JapanLocationService } from '../service/japanlocation.service';
 import { JapanLocationDeleteDto, JapanLocationDto } from '../dto/japanlocation.dto';
+import { multerOption } from '../utils/multer';
+
 
 @JsonController('/japan-location')
 export class JapanLocationController {
@@ -40,9 +42,9 @@ export class JapanLocationController {
 	}
 
 	@Post('/')
-	async insert(@Body() japanLocationDto: JapanLocationDto, @Res() response: Response) {
+	async insert(@UploadedFiles('files', multerOption) files: any[], @Res() response: Response) {
 		try {
-			const data = await this.japanLocationService.insert(japanLocationDto);
+			const data = await this.japanLocationService.insert(files);
 			return response.status(201).json({
 				"data": data,
 				"message": "OK"

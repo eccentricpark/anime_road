@@ -5,7 +5,10 @@ import { FileUtil } from "../utils/csv_convert";
 
 @Service()
 export class KantoLocationService {
-    constructor(private kantoLocationRepository: KantoLocationRepository, private fileUtil: FileUtil) { }
+    constructor(
+        private kantoLocationRepository: KantoLocationRepository, 
+        private fileUtil: FileUtil
+    ) { }
 
     // 지역 내 모든 성지 정보를 받아 온다.
     async findAll() {

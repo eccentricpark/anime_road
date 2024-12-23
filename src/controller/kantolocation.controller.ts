@@ -1,21 +1,10 @@
 // user.controller.ts
 import { JsonController, Req, Res, UploadedFiles, Param } from 'routing-controllers';
 import { Get, Post, Delete } from 'routing-controllers';
-import multer from 'multer';
 import { Response, NextFunction, Request } from 'express';
 import { Container } from 'typedi'
 import { KantoLocationService } from '../service/kantolocation.service';
-
-const multerOption = {
-	options: {
-		storage: multer.diskStorage(
-			{
-				destination: './uploads',
-				filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
-			}
-		)
-	}
-}
+import { multerOption } from '../utils/multer';
 
 
 @JsonController('/kantolocation')

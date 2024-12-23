@@ -36,8 +36,8 @@ export class KantoLocationRepository {
         }
     }
 
-    // 성지정보 입력하기기
-    async insert(temp:any[]){
+    // 성지정보 추출된 CSV 데이터로 한 번에 입력하기
+    async insert(temp: any[]){
         const connection = await Database.getInstance().getConnection();
         await connection.beginTransaction();
         try {

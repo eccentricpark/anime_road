@@ -37,13 +37,12 @@ export class JapanLocationRepository {
         }
     }
 
-    // 일본지역 정보 입력하기
-    async insert(japanLocationDto : JapanLocationDto){
-        const {location_id, location_korean_name, location_english_name, location_japan_name} = japanLocationDto;
+    // 일본지역 정보 추출된 CSV 데이터로 한 번에 입력하기
+    async insert(temp: any[]){
         const connection = await Database.getInstance().getConnection();
         await connection.beginTransaction();
         try {
-            const [row]: any = await connection.query(INSERT_QUERY, [location_id, location_korean_name, location_english_name, location_japan_name]);
+            const [row]: any = await connection.query(INSERT_QUERY, temp);
             connection.commit();
             connection.release();
             return row;
