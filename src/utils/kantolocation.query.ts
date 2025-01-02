@@ -26,5 +26,5 @@ export const SELECT_QUERY = `
 export const SELECT_ANIME_QUERY = `
     SELECT *
     FROM kanto_location
-    WHERE anime_korean_name = ?
+    WHERE anime_korean_name = ?;
 `;

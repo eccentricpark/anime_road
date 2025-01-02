@@ -14,20 +14,6 @@ export class KantoLocationController {
 		this.kantoLocationService = Container.get(KantoLocationService);
 	}
 
-	@Get('/')
-	async findAll(@Res() response: Response){
-		try {
-			const data = await this.kantoLocationService.findAll();
-			return response.status(200).json({
-				"data": data,
-				"message": "OK"
-			});
-		} catch (error) {
-			return response.status(400).json({
-				"message": "bad request"
-			})
-		}
-	}
 
 	@Get('/:anime_name')
 	async findByAnimeName(@Param('anime_name') anime_name: string, @Res() response: Response){
@@ -43,6 +29,23 @@ export class KantoLocationController {
 			})
 		}
 	}
+
+	@Get('/')
+	async findAll(@Res() response: Response){
+		try {
+			const data = await this.kantoLocationService.findAll();
+			return response.status(200).json({
+				"data": data,
+				"message": "OK"
+			});
+		} catch (error) {
+			return response.status(400).json({
+				"message": "bad request"
+			})
+		}
+	}
+
+
 
 	@Post('/')
 	async insert(@UploadedFiles('files', multerOption) files: any[], @Res() response: Response) {

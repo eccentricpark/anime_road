@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
-COPY . .
+COPY dist ./dist
 
 RUN npm install
 
@@ -14,4 +14,4 @@ EXPOSE 3000
 
 ENV PORT=3000
 
-CMD ["npm", "start"]
+CMD ["node", "./dist/app.js"]
