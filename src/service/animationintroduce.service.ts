@@ -25,10 +25,11 @@ export class AnimationIntroduceService{
   }
 
   // 일본 지역 정보를 csv로 입력
-  async insertByCSV(files : any[]){
+  async insertCSV(files : any[]){
     // csv 데이터 추출
     const csvData:any = await this.fileUtil.processFiles(files);
-    
+    console.log(csvData);
+    let result = 0;
     // csv 데이터 입력
     for (let i = 0; i < csvData.length; i++) {
       const temp: any[] = [];
@@ -36,13 +37,13 @@ export class AnimationIntroduceService{
       // 한 세트씩 DB에 입력
       for (const [key, value] of Object.entries(csvData[i]))
           temp.push(value);
-      const row = await this.animationIntroduceRepository.insert(temp);
+      const row = await this.animationIntroduceRepository.insertCSV(temp);
       const {affectedRows} = row;
-
+      result = affectedRows;
       if(affectedRows !== 1)
           throw Error("데이터 하나가 잘못 입력됐습니다.");
     }
-    return 1;
+    return result;
   }
 
 

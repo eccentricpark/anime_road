@@ -20,6 +20,18 @@ export const INSERT_KOREAN_QUERY = `
     ) values(?,?,?);
 `;
 
+export const INSERT_KOREAN_BY_FILE_QUERY = `
+    INSERT INTO ${table}(
+        location_id,
+        anime_korean_name,
+        anime_english_name,
+        anime_japan_name,
+        content_korean,
+        content_english,
+        content_japan
+    ) values(?,?,?,?,?,?,?);
+`;
+
 export const DELETE_KOREAN_QUERY = `
     DELETE
     FROM ${table}

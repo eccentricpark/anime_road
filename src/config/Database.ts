@@ -14,7 +14,7 @@ export class Database {
 				waitForConnections: true,
 				charset: "utf8",
 				connectionLimit: 10,
-				queueLimit: 0
+				queueLimit: 3
 			});
 		}
 		return Database.instance;

@@ -29,6 +29,21 @@ export class AnimationDetailController {
         }
     }
 
+    @Post('/files')
+    async insertCSV(@UploadedFiles('files', multerOption) files : any[], @Res() response: Response) {
+        try {
+            const data = await this.animationIntroduceService.insertCSV(files);
+            return response.status(201).json({
+                "data": data,
+                "message": "OK"
+            });
+        } catch (error) {
+            return response.status(400).json({
+                "message": error
+            })
+        }
+    }
+
 
     @Post('/')
     async insert(@Body() animationIntroduceKoreanDto : AnimationIntroduceKoreanDto, @Res() response: Response) {
