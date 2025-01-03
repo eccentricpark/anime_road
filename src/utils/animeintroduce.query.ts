@@ -1,4 +1,4 @@
-const table = 'animation_introduce';
+const table = 'anime_introduce';
 
 export const SELECT_ALL_QUERY = `
     SELECT * 
@@ -6,9 +6,9 @@ export const SELECT_ALL_QUERY = `
 `;
 
 export const SELECT_BY_KOREAN_NAME_QUERY = `
-    SELECT anime_korean_name, content_korean
+    SELECT anime_korean_name, anime_image, content_korean
     FROM ${table}
-    WHERE anime_korean_name = ?
+    WHERE anime_korean_name = REPLACE(?, ' ', '');
 `;
 
 

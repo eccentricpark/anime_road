@@ -1,23 +1,27 @@
 import { Service } from "typedi";
-import { AnimationIntroduceRepository } from "../repository/animationintroduce.repository";
-import { AnimationIntroduceKoreanDto } from "../dto/animationintroduce.dto";
+import { AnimeIntroduceRepository } from "../repository/animeintroduce.repository";
+import { AnimeIntroduceKoreanDto } from "../dto/animeintroduce.dto";
 import { FileUtil } from "../utils/csv_convert";
 
 
 @Service()
-export class AnimationIntroduceService{
+export class AnimeIntroduceService{
   constructor(
-    private animationIntroduceRepository : AnimationIntroduceRepository,
+    private animeIntroduceRepository : AnimeIntroduceRepository,
     private fileUtil : FileUtil
   ){}
 
   async findAll(){
-    return await this.animationIntroduceRepository.findAll();
+    return await this.animeIntroduceRepository.findAll();
   }
 
-  async insert(animationDetailKoreanDto : AnimationIntroduceKoreanDto){
-    const {location_id, anime_korean_name, content_korean} = animationDetailKoreanDto;
-    const row = await this.animationIntroduceRepository.insert([location_id, anime_korean_name, content_korean]);
+  async findByAnimeName(anime_korean_name: string){
+    return await this.animeIntroduceRepository.findByAnimeName(anime_korean_name);
+  }
+
+  async insert(animeIntroduceKoreanDto : AnimeIntroduceKoreanDto){
+    const {location_id, anime_korean_name, content_korean} = animeIntroduceKoreanDto;
+    const row = await this.animeIntroduceRepository.insert([location_id, anime_korean_name, content_korean]);
     const {affectedRows} = row;
     if(affectedRows !== 1)
       throw Error("잘못 입력됐습니다. SQL이나 데이터를 다시 확인하세요.");
@@ -37,7 +41,7 @@ export class AnimationIntroduceService{
       // 한 세트씩 DB에 입력
       for (const [key, value] of Object.entries(csvData[i]))
           temp.push(value);
-      const row = await this.animationIntroduceRepository.insertCSV(temp);
+      const row = await this.animeIntroduceRepository.insertCSV(temp);
       const {affectedRows} = row;
       result = affectedRows;
       if(affectedRows !== 1)
@@ -47,8 +51,8 @@ export class AnimationIntroduceService{
   }
 
 
-  async deleteAnimation(anime_korean_name: string){
-    const row = await this.animationIntroduceRepository.deleteAnimation(anime_korean_name);
+  async deleteAnime(anime_korean_name: string){
+    const row = await this.animeIntroduceRepository.deleteAnime(anime_korean_name);
     const {affectedRows} = row;
     return affectedRows;
   }

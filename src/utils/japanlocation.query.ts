@@ -1,17 +1,19 @@
+const table = 'japan_location';
+
 export const SELECT_ALL_QUERY = `
     SELECT * 
-    FROM japan_location
+    FROM ${table}
 `;
 
 export const SELECT_BY_ID_QUERY = `
     SELECT location_korean_name, location_english_name, location_japan_name
-    FROM japan_location
+    FROM ${table}
     WHERE location_id = ?
 `;
 
 
 export const INSERT_QUERY = `
-    INSERT INTO japan_location(
+    INSERT INTO ${table}(
         location_id,
         location_korean_name,
         location_english_name,
@@ -21,6 +23,6 @@ export const INSERT_QUERY = `
 
 export const DELETE_QUERY = `
     DELETE
-    FROM japan_location
+    FROM ${table}
     WHERE location_id = ?;
 `;

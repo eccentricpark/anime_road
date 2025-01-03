@@ -1,5 +1,7 @@
+const table = 'kanto_location';
+
 export const INSERT_QUERY = `
-INSERT INTO kanto_location (
+INSERT INTO ${table} (
     location_id,
     anime_korean_name,
     anime_english_name,
@@ -20,11 +22,11 @@ INSERT INTO kanto_location (
 
 export const SELECT_QUERY = `
     SELECT *
-    FROM kanto_location
+    FROM ${table}
 `;
 
 export const SELECT_ANIME_QUERY = `
     SELECT *
-    FROM kanto_location
+    FROM ${table}
     WHERE anime_korean_name = ?;
 `;
