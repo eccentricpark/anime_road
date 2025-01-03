@@ -26,10 +26,11 @@ export const INSERT_KOREAN_BY_FILE_QUERY = `
         anime_korean_name,
         anime_english_name,
         anime_japan_name,
+        anime_image,
         content_korean,
         content_english,
         content_japan
-    ) values(?,?,?,?,?,?,?);
+    ) values(?,?,?,?,?,?,?,?);
 `;
 
 export const DELETE_KOREAN_QUERY = `
