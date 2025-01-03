@@ -1,7 +1,7 @@
 const table = 'anime_introduce';
 
 export const SELECT_ALL_QUERY = `
-    SELECT * 
+    SELECT anime_korean_name, anime_image, content_korean 
     FROM ${table};
 `;
 

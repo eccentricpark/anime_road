@@ -8,7 +8,7 @@ import { multerOption } from '../utils/multer';
 
 
 @JsonController('/anime-introduce')
-export class AnimeDetailController {
+export class AnimeIntroduceController {
     private animeIntroduceService: AnimeIntroduceService;
     constructor() {
         this.animeIntroduceService = Container.get(AnimeIntroduceService);
@@ -32,7 +32,11 @@ export class AnimeDetailController {
     @Get('/:anime_korean_name')
     async findByAnimeName(@Param('anime_korean_name') anime_korean_name: string, @Res() response: Response){
         try {
-            return await this.animeIntroduceService.findByAnimeName(anime_korean_name);
+            const data = await this.animeIntroduceService.findByAnimeName(anime_korean_name);
+            return response.status(200).json({
+                "data": data,
+                "message": "OK"
+            });
         } catch (error) {
             return response.status(400).json({
                 "message": error
