@@ -19,7 +19,7 @@ export class KantoLocationController {
 	async findByAnimeName(@Param('anime_name') anime_name: string, @Res() response: Response){
 		try {
 			const data = await this.kantoLocationService.findByAnimeName(anime_name);
-			return response.status(201).json({
+			return response.status(200).json({
 				"data": data,
 				"message": "OK"
 			});
