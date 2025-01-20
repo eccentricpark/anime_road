@@ -12,11 +12,12 @@ INSERT INTO ${table} (
     latitude,
     longitude,
     DMS_latitude,
-    DMS_longitude
+    DMS_longitude,
+    description
 ) VALUES (
     ?, ?, ?, ?,
     ?, ?, ?, ?,
-    ?, ?, ?
+    ?, ?, ?, ?
 );
 `;
 
