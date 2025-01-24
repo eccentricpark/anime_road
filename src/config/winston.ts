@@ -1,9 +1,10 @@
 import { createLogger, transports, format } from "winston";
 import dotenv from 'dotenv';
 dotenv.config();
+
+// 일반 로그
 export const logger = createLogger({
-    level: process.env.NODE_ENV === 'production' ? 'error' : 'development', // 환경별 로그 레벨 설정
-    // level: 'info', // 환경별 로그 레벨 설정
+    level: 'info',
     format: format.combine(
       format.colorize(), // 색상 추가
       format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
@@ -17,8 +18,9 @@ export const logger = createLogger({
     ]
 });
 
+// 에러 로그
 export const errorLogger = createLogger({
-    level: 'error', // 환경별 로그 레벨 설정
+    level: 'error',
     format: format.combine(
       format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
       format.printf(({ level, message, timestamp }) => {
