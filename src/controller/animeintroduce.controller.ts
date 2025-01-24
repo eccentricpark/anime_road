@@ -5,6 +5,7 @@ import { Container } from 'typedi'
 import { AnimeIntroduceService } from '../service/animeintroduce.service';
 import { AnimeIntroduceKoreanDto } from '../dto/animeintroduce.dto';
 import { multerOption } from '../utils/multer';
+import { errorLogger } from '../config/winston';
 
 
 @JsonController('/anime-introduce')
@@ -23,6 +24,7 @@ export class AnimeIntroduceController {
                 "message": "OK"
             });
         } catch (error) {
+            errorLogger.error(error);
             return response.status(400).json({
                 "message": "bad request"
             })
@@ -38,6 +40,7 @@ export class AnimeIntroduceController {
                 "message": "OK"
             });
         } catch (error) {
+            errorLogger.error(error);
             return response.status(400).json({
                 "message": error
             })

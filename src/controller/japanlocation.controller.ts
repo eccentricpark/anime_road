@@ -1,10 +1,11 @@
 // user.controller.ts
 import { JsonController, Get, Post, Delete, Req, Res, Param, Body, UploadedFiles } from 'routing-controllers';
-import { Response, NextFunction, Request } from 'express';
+import { Response } from 'express';
 import { Container } from 'typedi'
 import { JapanLocationService } from '../service/japanlocation.service';
-import { JapanLocationDeleteDto, JapanLocationDto } from '../dto/japanlocation.dto';
+import { JapanLocationDeleteDto } from '../dto/japanlocation.dto';
 import { multerOption } from '../utils/multer';
+import { errorLogger } from '../config/winston';
 
 
 @JsonController('/japan-location')
@@ -23,6 +24,7 @@ export class JapanLocationController {
 				"message": "OK"
 			});
 		} catch (error) {
+			errorLogger.error(error);
 			return response.status(400).json({
 				"message": "bad request"
 			})
@@ -35,6 +37,7 @@ export class JapanLocationController {
 		try {
 			return data;
 		} catch (error) {
+			errorLogger.error(error);
 			return response.status(400).json({
 				"message": "bad request"
 			})
@@ -50,6 +53,7 @@ export class JapanLocationController {
 				"message": "OK"
 			});
 		} catch (error) {
+			errorLogger.error(error);
 			return response.status(400).json({
 				"message": "bad request"
 			})
@@ -65,6 +69,7 @@ export class JapanLocationController {
 				"message": "OK"
 			});
 		} catch (error) {
+			errorLogger.error(error);
 			return response.status(400).json({
 				"message": "bad request"
 			})

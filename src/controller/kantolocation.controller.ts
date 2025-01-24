@@ -5,7 +5,7 @@ import { Response, NextFunction, Request } from 'express';
 import { Container } from 'typedi'
 import { KantoLocationService } from '../service/kantolocation.service';
 import { multerOption } from '../utils/multer';
-
+import { errorLogger } from '../config/winston';
 
 @JsonController('/kantolocation')
 export class KantoLocationController {
@@ -24,8 +24,9 @@ export class KantoLocationController {
 				"message": "OK"
 			});
 		} catch (error) {
+			errorLogger.error(error);
 			return response.status(400).json({
-				"message": "bad request"
+				"message": `bad request ${error}`
 			})
 		}
 	}
@@ -39,6 +40,7 @@ export class KantoLocationController {
 				"message": "OK"
 			});
 		} catch (error) {
+			errorLogger.error(error);
 			return response.status(400).json({
 				"message": "bad request"
 			})
@@ -56,6 +58,7 @@ export class KantoLocationController {
 				"message": "OK"
 			});
 		} catch (error) {
+			errorLogger.error(error);
 			return response.status(400).json({
 				"message": "bad request"
 			})

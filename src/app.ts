@@ -2,6 +2,7 @@ import express from 'express';
 import {Request, Response, NextFunction} from 'express';
 import 'reflect-metadata';
 import { setExpress } from './loader/express';
+import { logger } from './config/winston';
 
 const app = express();
 
@@ -15,7 +16,7 @@ async function startServer(){
   });
 
   app.listen(PORT, ()=>{
-    console.log(`start ${PORT}`);
+    logger.info(`start ${PORT}`);
   });
 
   console.log(process.env.DATABASE);
