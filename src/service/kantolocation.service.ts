@@ -24,7 +24,7 @@ export class KantoLocationService {
     async insert(files: any[]) {
         // csv 데이터 추출
         const animePilgrimData: any = await this.fileUtil.processFiles(files);
-
+        let affectedRows = 0;
         // csv 데이터 입력
         for (let i = 0; i < animePilgrimData.length; i++) {
             const temp: any[] = [];
@@ -33,11 +33,8 @@ export class KantoLocationService {
             for (const [key, value] of Object.entries(animePilgrimData[i]))
                 temp.push(value);
             const row = await this.kantoLocationRepository.insert(temp);
-            const {affectedRows} = row;
-
-            if(affectedRows !== 1)
-                throw Error("데이터 하나가 잘못 입력됐습니다.");
+            affectedRows += row.affectedRows;
         }
-        return 1;
+        return affectedRows;
     }
 }

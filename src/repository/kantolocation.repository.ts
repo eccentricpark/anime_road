@@ -41,10 +41,10 @@ export class KantoLocationRepository {
         const connection = await Database.getInstance().getConnection();
         await connection.beginTransaction();
         try {
-            const [rows]: any = await connection.query(INSERT_QUERY, temp);
+            const [row]: any = await connection.query(INSERT_QUERY, temp);
             connection.commit();
             connection.release();
-            return rows;
+            return row;
         } catch (error) {
             console.error(error);
             await connection.rollback();
