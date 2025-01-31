@@ -8,7 +8,7 @@ export const SELECT_ALL_QUERY = `
 export const SELECT_BY_KOREAN_NAME_QUERY = `
     SELECT anime_korean_name, anime_image, content_korean
     FROM ${table}
-    WHERE anime_korean_name = REPLACE(?, ' ', '');
+    WHERE anime_korean_name LIKE ?;
 `;
 
 

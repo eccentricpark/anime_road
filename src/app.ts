@@ -18,10 +18,6 @@ async function startServer(){
   app.listen(PORT, ()=>{
     logger.info(`start ${PORT}`);
   });
-
-  console.log(process.env.DATABASE);
-  console.log(process.env.DATABASE_HOST);
-  console.log(process.env.DATABASE_USER);
 }
 startServer();
 

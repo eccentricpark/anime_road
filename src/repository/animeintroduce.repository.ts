@@ -7,29 +7,23 @@ import {SELECT_ALL_QUERY, INSERT_KOREAN_QUERY, DELETE_KOREAN_QUERY, INSERT_KOREA
 export class AnimeIntroduceRepository {
     async findAll(){
         const connection = await Database.getInstance().getConnection();
-        await connection.beginTransaction();
         try {
             const [rows] = await connection.query(SELECT_ALL_QUERY, []);
-            connection.commit();
-            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
-            await connection.rollback();
+            throw error;
         }
     }
 
     async findByAnimeName(anime_korean_name: string){
         const connection = await Database.getInstance().getConnection();
-        await connection.beginTransaction();
         try {
-            const [rows] = await connection.query(SELECT_BY_KOREAN_NAME_QUERY, [anime_korean_name]);
-            connection.commit();
-            connection.release();
+            const [rows] = await connection.query(SELECT_BY_KOREAN_NAME_QUERY, [`%${anime_korean_name}%`]);
             return rows;
         } catch (error) {
             console.error(error);
-            await connection.rollback();
+            throw error;
         }
     }
 

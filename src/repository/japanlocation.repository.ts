@@ -11,29 +11,23 @@ export class JapanLocationRepository {
     // 일본 지역 정보 모두 가져오기
     async findAll() {
         const connection = await Database.getInstance().getConnection();
-        await connection.beginTransaction();
         try {
             const [rows] = await connection.query(SELECT_ALL_QUERY, []);
-            connection.commit();
-            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
-            await connection.rollback();
+            throw error;
         }
     }
 
     async findOneById(location_id : string){
         const connection = await Database.getInstance().getConnection();
-        await connection.beginTransaction();
         try {
             const [rows] = await connection.query(SELECT_BY_ID_QUERY, [location_id]);
-            connection.commit();
-            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
-            await connection.rollback();
+            throw error;
         }
     }
 
