@@ -13,6 +13,7 @@ export class JapanLocationRepository {
         const connection = await Database.getInstance().getConnection();
         try {
             const [rows] = await connection.query(SELECT_ALL_QUERY, []);
+            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
@@ -24,6 +25,7 @@ export class JapanLocationRepository {
         const connection = await Database.getInstance().getConnection();
         try {
             const [rows] = await connection.query(SELECT_BY_ID_QUERY, [location_id]);
+            connection.release();
             return rows;
         } catch (error) {
             console.error(error);

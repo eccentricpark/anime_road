@@ -11,6 +11,7 @@ export class KantoLocationRepository {
         const connection = await Database.getInstance().getConnection();
         try {
             const [rows] = await connection.query(SELECT_QUERY, []);
+            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
@@ -23,6 +24,7 @@ export class KantoLocationRepository {
         const connection = await Database.getInstance().getConnection();
         try {
             const [rows] = await connection.query(SELECT_ANIME_QUERY, [anime_name]);
+            connection.release();
             return rows;
         } catch (error) {
             console.error(error);

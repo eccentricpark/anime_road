@@ -9,6 +9,7 @@ export class AnimeIntroduceRepository {
         const connection = await Database.getInstance().getConnection();
         try {
             const [rows] = await connection.query(SELECT_ALL_QUERY, []);
+            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
@@ -20,6 +21,7 @@ export class AnimeIntroduceRepository {
         const connection = await Database.getInstance().getConnection();
         try {
             const [rows] = await connection.query(SELECT_BY_KOREAN_NAME_QUERY, [`%${anime_korean_name}%`]);
+            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
