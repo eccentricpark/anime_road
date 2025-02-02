@@ -10,19 +10,3 @@ export const SELECT_BY_ID_QUERY = `
     FROM ${table}
     WHERE location_id = ?
 `;
-
-
-export const INSERT_QUERY = `
-    INSERT INTO ${table}(
-        location_id,
-        location_korean_name,
-        location_english_name,
-        location_japan_name
-    ) values(?,?,?,?);
-`;
-
-export const DELETE_QUERY = `
-    DELETE
-    FROM ${table}
-    WHERE location_id = ?;
-`;

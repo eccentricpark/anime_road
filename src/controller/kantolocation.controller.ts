@@ -1,10 +1,9 @@
 // user.controller.ts
-import { JsonController, Req, Res, UploadedFiles, Param } from 'routing-controllers';
+import { JsonController, Req, Res, Param } from 'routing-controllers';
 import { Get, Post, Delete } from 'routing-controllers';
 import { Response, NextFunction, Request } from 'express';
 import { Container } from 'typedi'
 import { KantoLocationService } from '../service/kantolocation.service';
-import { multerOption } from '../utils/multer';
 import { errorLogger } from '../config/winston';
 
 @JsonController('/kantolocation')
@@ -13,7 +12,6 @@ export class KantoLocationController {
 	constructor() {
 		this.kantoLocationService = Container.get(KantoLocationService);
 	}
-
 
 	@Get('/:anime_name')
 	async findByAnimeName(@Param('anime_name') anime_name: string, @Res() response: Response){
@@ -46,23 +44,4 @@ export class KantoLocationController {
 			})
 		}
 	}
-
-
-
-	@Post('/')
-	async insert(@UploadedFiles('files', multerOption) files: any[], @Res() response: Response) {
-		try {
-			const data = await this.kantoLocationService.insert(files);
-			return response.status(201).json({
-				"data": data,
-				"message": "OK"
-			});
-		} catch (error) {
-			errorLogger.error(error);
-			return response.status(400).json({
-				"message": "bad request"
-			})
-		}
-	}
-
 }

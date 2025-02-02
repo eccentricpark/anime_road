@@ -1,10 +1,8 @@
 // user.controller.ts
-import { JsonController, Get, Post, Delete, Req, Res, Param, Body, UploadedFiles } from 'routing-controllers';
+import { JsonController, Get, Res, Param } from 'routing-controllers';
 import { Response } from 'express';
 import { Container } from 'typedi'
 import { JapanLocationService } from '../service/japanlocation.service';
-import { JapanLocationDeleteDto } from '../dto/japanlocation.dto';
-import { multerOption } from '../utils/multer';
 import { errorLogger } from '../config/winston';
 
 
@@ -36,38 +34,6 @@ export class JapanLocationController {
 		const data = await this.japanLocationService.findOneById(location_id);
 		try {
 			return data;
-		} catch (error) {
-			errorLogger.error(error);
-			return response.status(400).json({
-				"message": "bad request"
-			})
-		}
-	}
-
-	@Post('/')
-	async insert(@UploadedFiles('files', multerOption) files: any[], @Res() response: Response) {
-		try {
-			const data = await this.japanLocationService.insert(files);
-			return response.status(201).json({
-				"data": data,
-				"message": "OK"
-			});
-		} catch (error) {
-			errorLogger.error(error);
-			return response.status(400).json({
-				"message": "bad request"
-			})
-		}
-	}
-
-	@Delete('/')
-	async deleteLocation(@Body() japanLocationDeleteDto: JapanLocationDeleteDto, @Res() response: Response) {
-		try {
-			const resultDelete = await this.japanLocationService.deleteLocation(japanLocationDeleteDto);
-			return response.status(201).json({
-				"data": resultDelete,
-				"message": "OK"
-			});
 		} catch (error) {
 			errorLogger.error(error);
 			return response.status(400).json({

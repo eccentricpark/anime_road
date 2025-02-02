@@ -1,6 +1,6 @@
 import { Service } from 'typedi';
 import { Database } from '../config/Database';
-import { SELECT_ANIME_QUERY, SELECT_QUERY, INSERT_QUERY } from '../utils/kantolocation.query';
+import { SELECT_ANIME_QUERY, SELECT_QUERY } from '../utils/kantolocation.query';
 
 @Service()
 export class KantoLocationRepository {
@@ -11,11 +11,12 @@ export class KantoLocationRepository {
         const connection = await Database.getInstance().getConnection();
         try {
             const [rows] = await connection.query(SELECT_QUERY, []);
-            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
             throw error;
+        } finally{
+            connection.release();
         }
     }
 
@@ -24,26 +25,12 @@ export class KantoLocationRepository {
         const connection = await Database.getInstance().getConnection();
         try {
             const [rows] = await connection.query(SELECT_ANIME_QUERY, [anime_name]);
-            connection.release();
             return rows;
         } catch (error) {
             console.error(error);
             throw error;
-        }
-    }
-
-    // 성지정보 추출된 CSV 데이터로 한 번에 입력하기
-    async insert(temp: any[]){
-        const connection = await Database.getInstance().getConnection();
-        await connection.beginTransaction();
-        try {
-            const [row]: any = await connection.query(INSERT_QUERY, temp);
-            connection.commit();
+        } finally{
             connection.release();
-            return row;
-        } catch (error) {
-            console.error(error);
-            await connection.rollback();
         }
     }
 }
